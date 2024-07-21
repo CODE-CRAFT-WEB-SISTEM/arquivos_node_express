@@ -1,26 +1,36 @@
-const express = require('express');
+const express = require("express");
+const patch = require("node:path");
 const app = express();
 const PORT = 3000;
 
-const getUser = []
+const storageUsers = [];
 
-app.use(express.static('public'))
+app.set("view engine", "ejs");
+app.set("views", patch.join(__dirname, "views"));
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/cadastro/index.html');
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.post('/users', (req, res) => {
-    const username = req.body.username
-    const password = req.body.password
-    
-    getUser.push({username, password})
+app.get("/form", (req, res) => {
+  res.render("form");
+});
 
-    res.redirect('/users')
+app.post('/register', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+
+  storageUsers.push({email, password})
+  
+  res.redirect('/register')
 })
 
-app.listen(PORT, () => {
-    console.log(`Servidor on-line na rota http://localhost:${PORT}`)
+app.get('/register', (req, res) => {
+  res.render('register', {users: storageUsers})
 })
+
+app.listen(PORT, (req, res) => {
+  console.log(`Servidor ativo ma porta na rota http://localhost:${PORT}`)
+});
