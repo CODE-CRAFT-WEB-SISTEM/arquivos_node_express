@@ -59,12 +59,38 @@
             right: .5rem;
             top: .8rem;
         }
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+        .btn1, .btn2 {
+            border: 0;
+            cursor: pointer;
+            padding: .6rem 1rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        .btn1 {
+        background-color: dodgerblue;
+        }
+
+        .btn2 {
+            background-color: seagreen;
+        }
     </style>
 </head>
 
 <body>
     <h1>Conta dos usuários</h1>
     <span>Contas criadas: <%= getUsers.length %></span>
+    <div class="btn">
+        <a href="/form"><button class="btn1">Novo E-mail</button></a>
+        <a href="/"><button class="btn2">Home</button></a>
+    </div>
     <ul>
         <% getUsers.forEach(email => { %>
             <li>
